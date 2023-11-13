@@ -1,4 +1,3 @@
-```markdown
 # Public Environment Configuration Script
 
 This PowerShell script is a simple tool designed for setting up development environments on public computers, such as those available in libraries. The script facilitates the installation of local copies of essential tools like Python, Git, and Paint.NET, allowing you to work on projects even when you don't have access to a private computer.
