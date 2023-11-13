@@ -27,7 +27,6 @@ Configuration
 Edit the $packages variable in the script to specify the packages you want to install. Example:
 
 powershell
-Copy code
 $packages = @{
     'git'       = @{ 'version' = '2.41.0.3' }
     'python'    = @{ 'version' = '3.11.1' }
