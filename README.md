@@ -26,7 +26,7 @@ Useful for working on public computers where installing tools might be restricte
 Configuration
 Edit the $packages variable in the script to specify the packages you want to install. Example:
 
-powershell
+ ```powershell
 $packages = @{
     'git'       = @{ 'version' = '2.41.0.3' }
     'python'    = @{ 'version' = '3.11.1' }
