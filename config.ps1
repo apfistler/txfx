@@ -328,7 +328,7 @@ function Exit-Error {
 
 function Main {
     $packages = @{
-        'git'           = @{ 'version' = '2.41.0.3' }
+        'git'       = @{ 'version' = '2.41.0.3' }
         'python'    = @{ 'version' = '3.11.1' }
         'paint.net' = @{ 'version' = '5.0.11' }
     }
