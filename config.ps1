@@ -1,4 +1,4 @@
-#Set-ExecutionPolicy Bypass -Scope Process^
+#Set-ExecutionPolicy Bypass -Scope Process
 
 function Configure-Environment {
     $ProjectDir = Join-Path $env:USERPROFILE "TxFx"
