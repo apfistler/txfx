@@ -26,13 +26,13 @@ Useful for working on public computers where installing tools might be restricte
 Configuration
 Edit the $packages variable in the script to specify the packages you want to install. Example:
 
- ```powershell
+powershell
+Copy code
 $packages = @{
-    'git'       = @{ 'version' = '2.41.0.3' }
-    'python'    = @{ 'version' = '3.11.1' }
-    'paint.net' = @{ 'version' = '5.0.11' }
+   'git'       = @{ 'version' = '2.41.0.3' }
+   'python'    = @{ 'version' = '3.11.1' }
+   'paint.net' = @{ 'version' = '5.0.11' }
 }
-
 Notes
 The first line Set-ExecutionPolicy Bypass -Scope Process should be executed separately in the PowerShell terminal to override script execution restrictions on public Windows machines.
 
@@ -44,5 +44,7 @@ Use this script responsibly and respect the policies of public computers and ins
 License
 This script is provided under the MIT License.
 
+sql
 Copy code
-Replace `your_script_name.ps1` with the actual name of your PowerShell script. Fee
+
+Feel free to copy and paste this version into your `README.md` file.
