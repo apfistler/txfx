@@ -59,6 +59,10 @@ function Configure-Package {
     $PackageTarget = "${DownloadDir}\${PackageInstaller}"
     $PackageInstallDir = "${ProjectDir}\${PackageName}"
 
+    if ($PackageName -eq "pscp") {
+      $PackageInstallDir = "${ProjectDir}\putty"
+    }
+
     Write-Package-Config $PackageName $PackageVersion $Arch $PackageUrl $PackageInstaller $PackageTarget
     Download-Package $PackageName $PackageUrl $PackageTarget
     Install-Package $PackageName $PackageTarget $PackageInstallDir
@@ -97,6 +101,29 @@ function Get-PackageUrl {
         $PackageUrlBase = "https://www.python.org/ftp/python/${PackageVersion}"
         $PackageInstaller = "python-${PackageVersion}${archStr}.exe"
         $PackageUrl = "${PackageUrlBase}/${PackageInstaller}"
+    } elseif ($PackageName -eq "putty") {
+
+        if ($Arch -eq "64-bit") {
+            $archStr = "w64"
+        } else {
+            $archStr = "w32"
+        }
+
+        $PackageUrlBase = "https://the.earth.li/~sgtatham/putty/latest/${archStr}"
+        $PackageInstaller  = "putty.exe"
+        $PackageUrl          = "${PackageUrlBase}/${PackageInstaller}"
+    } elseif ($PackageName -eq "pscp") {
+
+        if ($Arch -eq "64-bit") {
+            $archStr = "w64"
+        } else {
+            $archStr = "w32"
+        }
+
+        $PackageUrlBase = "https://the.earth.li/~sgtatham/putty/latest/${archStr}"
+        $PackageInstaller  = "pscp.exe"
+        $PackageUrl          = "${PackageUrlBase}/${PackageInstaller}"
+
     } elseif ($PackageName -eq "paint.net") {
 
         if ($Arch -eq "64-bit") {
@@ -148,6 +175,10 @@ function Test-Package-Installed {
         $PackageExecutable = "${PackageInstallDir}\python.exe"
     } elseif ($PackageName -eq "paint.net") {
         $PackageExecutable = "${PackageInstallDir}\paintdotnet.exe"
+    } elseif ($PackageName -eq "pscp") {
+       $PackageExecutable = "${PackageInstallDir}\pscp.exe" 
+    } elseif ($PackageName -eq "putty") {
+        $PackageExecutable = "${PackageInstallDir}\putty.exe"
     }
 
     return Test-FileExistsNonZero $PackageExecutable
@@ -188,7 +219,16 @@ function Install-Package {
  
        } elseif ($PackageName -eq 'paint.net') {
             Expand-Archive -Path ${PackageInstaller} -DestinationPath ${PackageInstallDir}
-        }
+       } elseif ($PackageName -eq 'pscp' ) {
+           Write-Host
+           Create-DirectoryIfNotExists $PackageInstallDir "Putty Install Directory"
+           Move-Item -Path $PackageInstaller -Destination $PackageInstallDir
+       } elseif ($PackageName -eq 'putty' ) {
+           Write-Host
+           Create-DirectoryIfNotExists $PackageInstallDir "Putty Install Directory"
+           Move-Item -Path $PackageInstaller -Destination $PackageInstallDir
+
+       }
 
 
         # For some reason processInfo is empty on some machines and I can't reliably use an exit code of 0 for success.
@@ -222,6 +262,10 @@ function Export-Path {
     } elseif ($PackageName -eq "python") {
         $newPath = "${PackageInstallDir};${PackageInstallDir}\scripts"
     } elseif ($PackageName -eq "paint.net") {
+        $newPath = "${PackageInstallDir}"
+    } elseif ($PackageName -eq "pscp") {
+        $newPath = "${PackageInstallDir}"
+    } elseif ($PackageName -eq "putty") {
         $newPath = "${PackageInstallDir}"
     }
 
@@ -331,6 +375,8 @@ function Main {
         'git'       = @{ 'version' = '2.41.0.3' }
         'python'    = @{ 'version' = '3.11.1' }
         'paint.net' = @{ 'version' = '5.0.11' }
+        'putty'     = @{ 'version' = 'latest' }
+        'pscp'      = @{ 'version' = 'latest' }
     }
 
     Clear-Host
