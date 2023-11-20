@@ -66,7 +66,7 @@ function Configure-Package {
     $PackageTarget = "${DownloadDir}\${PackageInstaller}"
     $PackageInstallDir = "${ProjectDir}\${PackageName}"
 
-    if ( ($PackageName -eq "pscp") -or ( $PackageName -eq "puttygen" ) ) {
+    if ( ($PackageName -eq "pscp") -or ( $PackageName -eq "puttygen" ) -or ( $PackageName -eq "psftp") ) {
       $PackageInstallDir = "${ProjectDir}\putty"
     }
 
@@ -108,7 +108,7 @@ function Get-PackageUrl {
         $PackageUrlBase = "https://www.python.org/ftp/python/${PackageVersion}"
         $PackageInstaller = "python-${PackageVersion}${archStr}.exe"
         $PackageUrl = "${PackageUrlBase}/${PackageInstaller}"
-    } elseif ( ($PackageName -eq "putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") ) {
+    } elseif ( ($PackageName -eq "putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") -or ($PackageName -eq "psftp") ) {
 
         if ($Arch -eq "64-bit") {
             $archStr = "w64"
@@ -170,7 +170,7 @@ function Test-Package-Installed {
         $PackageExecutable = "${PackageInstallDir}\python.exe"
     } elseif ($PackageName -eq "paint.net") {
         $PackageExecutable = "${PackageInstallDir}\paintdotnet.exe"
-    } elseif ( ($PackageName -eq "putty" ) -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") ) {
+    } elseif ( ($PackageName -eq "putty" ) -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") -or ($PackageName -eq "psftp") ) {
        $PackageExecutable = "${PackageInstallDir}\${PackageName}.exe" 
     }
 
@@ -212,8 +212,9 @@ function Install-Package {
  
        } elseif ($PackageName -eq 'paint.net') {
             Expand-Archive -Path ${PackageInstaller} -DestinationPath ${PackageInstallDir}
-       } elseif ( ($PackageName -eq "Putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") ){         
-           Create-DirectoryIfNotExists $PackageInstallDir "Putty Install Directory" false
+       } elseif ( ($PackageName -eq "Putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") -or ($PackageName -eq "psftp") ){         
+           Create-DirectoryIfNotExists -Path $PackageInstalDir -Name "Putty Install Dir" -Echo $false
+
            Move-Item -Path $PackageInstaller -Destination $PackageInstallDir
        }
 
@@ -250,7 +251,7 @@ function Export-Path {
         $newPath = "${PackageInstallDir};${PackageInstallDir}\scripts"
     } elseif ($PackageName -eq "paint.net") {
         $newPath = "${PackageInstallDir}"
-    } elseif ( ($PackageName -eq "putty" ) -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") ){
+    } elseif ( ($PackageName -eq "putty" ) -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") -or ($PackageName -eq "psftp") ){
         $newPath = "${PackageInstallDir}"
     }
 
@@ -363,6 +364,7 @@ function Main {
         'putty'     = @{ 'version' = 'latest' }
         'pscp'      = @{ 'version' = 'latest' }
         'puttygen'  = @{ 'version' = 'latest' }
+        'psftp'     = @{ 'version' = 'latest' }
     }
 
     Clear-Host
