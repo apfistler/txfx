@@ -28,19 +28,26 @@ function Configure-Environment {
 function Create-DirectoryIfNotExists {
     param (
         [string]$Path,
-        [string]$Name
+        [string]$Name,
+        [bool]$Echo = $true
     )
 
     $DirectoryCreated = $false
 
-    Write-Label $Name
+    if ($Echo) {
+        Write-Label $Name
+    }
+
     if (-not (Test-Path $Path)) {
         New-Item -ItemType Directory -Path $Path | Out-Null
         $DirectoryCreated = $true
     }
 
-    Write-Label-Result $DirectoryCreated "CREATED" "EXISTS"
+    if ($Echo) {
+        Write-Label-Result $DirectoryCreated "CREATED" "EXISTS"
+    }
 }
+
 
 function Configure-Package {
     param (
@@ -205,9 +212,8 @@ function Install-Package {
  
        } elseif ($PackageName -eq 'paint.net') {
             Expand-Archive -Path ${PackageInstaller} -DestinationPath ${PackageInstallDir}
-       } elseif ( ($PackageName -eq "Putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") ){
-           Write-Host
-           Create-DirectoryIfNotExists $PackageInstallDir "Putty Install Directory"
+       } elseif ( ($PackageName -eq "Putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") ){         
+           Create-DirectoryIfNotExists $PackageInstallDir "Putty Install Directory" false
            Move-Item -Path $PackageInstaller -Destination $PackageInstallDir
        }
 
