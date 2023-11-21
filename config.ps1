@@ -213,8 +213,7 @@ function Install-Package {
        } elseif ($PackageName -eq 'paint.net') {
             Expand-Archive -Path ${PackageInstaller} -DestinationPath ${PackageInstallDir}
        } elseif ( ($PackageName -eq "Putty") -or ($PackageName -eq "pscp") -or ($PackageName -eq "puttygen") -or ($PackageName -eq "psftp") ){         
-           Create-DirectoryIfNotExists -Path $PackageInstalDir -Name "Putty Install Dir" -Echo $false
-
+           Create-DirectoryIfNotExists -Path $PackageInstallDir -Name "Putty Install Dir" -Echo $false
            Move-Item -Path $PackageInstaller -Destination $PackageInstallDir
        }
 
