@@ -359,7 +359,7 @@ function Main {
     $packages = @{
         'git'       = @{ 'version' = '2.41.0.3' }
         'python'    = @{ 'version' = '3.11.1' }
-        'paint.net' = @{ 'version' = '5.0.11' }
+        'paint.net' = @{ 'version' = '5.0.12' }
         'putty'     = @{ 'version' = 'latest' }
         'pscp'      = @{ 'version' = 'latest' }
         'puttygen'  = @{ 'version' = 'latest' }
